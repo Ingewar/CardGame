@@ -4,19 +4,36 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
-    public Card[] cards;
+    public List<Card> cards = new List<Card>();
     [SerializeField] private Transform minPos, maxPos;
+
+    private List<Vector3> cardPositions = new List<Vector3>();
 
     void Start()
     {
-
+        SetCardPositions();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
     }
 
-    public void SetCardPositions() { }
+    public void SetCardPositions()
+    {
+        cardPositions.Clear();
+
+        Vector3 pointsDistance = Vector3.zero;
+        if (cards.Count > 1)
+        {
+            pointsDistance = (maxPos.position - minPos.position) / (cards.Count - 1);
+        }
+
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cardPositions.Add(minPos.position + pointsDistance * i);
+            cards[i].transform.position = cardPositions[i];
+        }
+
+    }
 }
