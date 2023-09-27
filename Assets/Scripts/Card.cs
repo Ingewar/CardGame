@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+[SelectionBase]
 public class Card : MonoBehaviour
 {
     [SerializeField] private CardScriptableObject cardSO;
