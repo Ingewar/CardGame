@@ -10,9 +10,12 @@ public class Card : MonoBehaviour
     [SerializeField] private CardScriptableObject cardSO;
     [SerializeField] private TMP_Text attackText, healthText, manaText, nameText, descriptionText, loreText;
     [SerializeField] private Image characterArt, bgArt;
+    [SerializeField] private float moveSpeed = 5f, rotateSpeed = 540f;
 
     private int attack, health, mana;
     private string cardName, description, lore;
+    private Vector3 targetPoint;
+    private Quaternion targetRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +26,14 @@ public class Card : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+    }
 
+    public void MoveToPoint(Vector3 pointToMoveTo, Quaternion rotToMatch)
+    {
+        targetPoint = pointToMoveTo;
+        targetRotation = rotToMatch;
     }
 
     private void SetupCard()

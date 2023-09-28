@@ -3877,6 +3877,7 @@ MonoBehaviour:
   loreText: {fileID: 561649128}
   characterArt: {fileID: 1787000381}
   bgArt: {fileID: 563666795}
+  moveSpeed: 5
 --- !u!1 &1146722246
 GameObject:
   m_ObjectHideFlags: 0
@@ -4982,6 +4983,7 @@ MonoBehaviour:
   loreText: {fileID: 462735117}
   characterArt: {fileID: 891688434}
   bgArt: {fileID: 1544900867}
+  moveSpeed: 5
 --- !u!4 &1410244321
 Transform:
   m_ObjectHideFlags: 0
@@ -5405,6 +5407,7 @@ MonoBehaviour:
   loreText: {fileID: 155181436}
   characterArt: {fileID: 13069865}
   bgArt: {fileID: 1459348478}
+  moveSpeed: 5
 --- !u!4 &1628998065
 Transform:
   m_ObjectHideFlags: 0
