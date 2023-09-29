@@ -7,20 +7,25 @@ using UnityEngine.UI;
 [SelectionBase]
 public class Card : MonoBehaviour
 {
+    public bool isInHand;
+    public int handIndex;
     [SerializeField] private CardScriptableObject cardSO;
     [SerializeField] private TMP_Text attackText, healthText, manaText, nameText, descriptionText, loreText;
     [SerializeField] private Image characterArt, bgArt;
     [SerializeField] private float moveSpeed = 5f, rotateSpeed = 540f;
+    [SerializeField] private Vector3 hoverOffset = new Vector3(0, 1f, .5f);
 
     private int attack, health, mana;
     private string cardName, description, lore;
     private Vector3 targetPoint;
     private Quaternion targetRotation;
+    private HandController handController;
 
     // Start is called before the first frame update
     void Start()
     {
         SetupCard();
+        handController = FindObjectOfType<HandController>();
     }
 
     // Update is called once per frame
@@ -56,4 +61,19 @@ public class Card : MonoBehaviour
         characterArt.sprite = cardSO.characterSprite;
     }
 
+    private void OnMouseOver()
+    {
+        if (isInHand)
+        {
+            MoveToPoint(handController.cardPositions[handIndex] + hoverOffset, Quaternion.identity);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (isInHand)
+        {
+            MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
+        }
+    }
 }

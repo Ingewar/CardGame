@@ -5,9 +5,9 @@ using UnityEngine;
 public class HandController : MonoBehaviour
 {
     public List<Card> cards = new List<Card>();
-    [SerializeField] private Transform minPos, maxPos;
+    public Transform minPos, maxPos;
 
-    private List<Vector3> cardPositions = new List<Vector3>();
+    public List<Vector3> cardPositions = new List<Vector3>();
 
     void Start()
     {
@@ -33,7 +33,12 @@ public class HandController : MonoBehaviour
         {
             cardPositions.Add(minPos.position + pointsDistance * i);
             cards[i].MoveToPoint(cardPositions[i], minPos.rotation);
+
+            cards[i].isInHand = true;
+            cards[i].handIndex = i;
         }
 
     }
+
+
 }
