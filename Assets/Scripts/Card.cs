@@ -14,17 +14,28 @@ public class Card : MonoBehaviour
     [SerializeField] private Image characterArt, bgArt;
     [SerializeField] private float moveSpeed = 5f, rotateSpeed = 540f;
     [SerializeField] private Vector3 hoverOffset = new Vector3(0, 1f, .5f);
+    [SerializeField] private Vector3 selectedCardOffset = new Vector3(0, 2, 0);
+    [SerializeField] private LayerMask desktopLayer, placementLayer;
 
     private int attack, health, mana;
     private string cardName, description, lore;
     private Vector3 targetPoint;
     private Quaternion targetRotation;
     private HandController handController;
+    private bool isSelected;
+    private Collider col;
+    private bool justPressed;
+    private CardPlacement cardPlacement;
+
+    private void Awake()
+    {
+        col = GetComponent<Collider>();
+        SetupCard();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        SetupCard();
         handController = FindObjectOfType<HandController>();
     }
 
@@ -33,6 +44,49 @@ public class Card : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+
+        if (isSelected)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100f, desktopLayer))
+            {
+                MoveToPoint(hit.point + selectedCardOffset, Quaternion.identity);
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                ReturnToHand();
+            }
+
+            if (Input.GetMouseButtonUp(0) && justPressed == false)
+            {
+                if (Physics.Raycast(ray, out hit, 100f, placementLayer))
+                {
+                    CardPlacement selectedPoint = hit.collider.GetComponent<CardPlacement>();
+
+                    if (selectedPoint.activeCard is null && selectedPoint.isPlayer)
+                    {
+                        selectedPoint.activeCard = this;
+                        cardPlacement = selectedPoint;
+                        MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
+                        isInHand = false;
+                        isSelected = false;
+
+                        handController.RemoveCardFromHand(this);
+                    }
+                    else
+                    {
+                        ReturnToHand();
+                    }
+                }
+                else { ReturnToHand(); }
+            }
+
+        }
+
+        justPressed = false;
     }
 
     public void MoveToPoint(Vector3 pointToMoveTo, Quaternion rotToMatch)
@@ -75,5 +129,23 @@ public class Card : MonoBehaviour
         {
             MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
         }
+    }
+
+    private void OnMouseDown()
+    {
+        if (isInHand)
+        {
+            isSelected = true;
+            col.enabled = false;
+
+            justPressed = true;
+        }
+    }
+
+    public void ReturnToHand()
+    {
+        isSelected = false;
+        col.enabled = true;
+        MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
     }
 }
