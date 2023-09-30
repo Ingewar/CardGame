@@ -15,7 +15,7 @@ public class Card : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f, rotateSpeed = 540f;
     [SerializeField] private Vector3 hoverOffset = new Vector3(0, 1f, .5f);
     [SerializeField] private Vector3 selectedCardOffset = new Vector3(0, 2, 0);
-    [SerializeField] private LayerMask desktopLayer;
+    [SerializeField] private LayerMask desktopLayer, placementLayer;
 
     private int attack, health, mana;
     private string cardName, description, lore;
@@ -24,6 +24,8 @@ public class Card : MonoBehaviour
     private HandController handController;
     private bool isSelected;
     private Collider col;
+    private bool justPressed;
+    private CardPlacement cardPlacement;
 
     private void Awake()
     {
@@ -57,7 +59,32 @@ public class Card : MonoBehaviour
             {
                 ReturnToHand();
             }
+
+            if (Input.GetMouseButtonUp(0) && justPressed == false)
+            {
+                if (Physics.Raycast(ray, out hit, 100f, placementLayer))
+                {
+                    CardPlacement selectedPoint = hit.collider.GetComponent<CardPlacement>();
+
+                    if (selectedPoint.activeCard is null && selectedPoint.isPlayer)
+                    {
+                        selectedPoint.activeCard = this;
+                        cardPlacement = selectedPoint;
+                        MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
+                        isInHand = false;
+                        isSelected = false;
+                    }
+                    else
+                    {
+                        ReturnToHand();
+                    }
+                }
+                else { ReturnToHand(); }
+            }
+
         }
+
+        justPressed = false;
     }
 
     public void MoveToPoint(Vector3 pointToMoveTo, Quaternion rotToMatch)
@@ -108,6 +135,8 @@ public class Card : MonoBehaviour
         {
             isSelected = true;
             col.enabled = false;
+
+            justPressed = true;
         }
     }
 
