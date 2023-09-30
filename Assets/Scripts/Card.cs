@@ -52,6 +52,11 @@ public class Card : MonoBehaviour
             {
                 MoveToPoint(hit.point + selectedCardOffset, Quaternion.identity);
             }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                ReturnToHand();
+            }
         }
     }
 
@@ -104,5 +109,12 @@ public class Card : MonoBehaviour
             isSelected = true;
             col.enabled = false;
         }
+    }
+
+    public void ReturnToHand()
+    {
+        isSelected = false;
+        col.enabled = true;
+        MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
     }
 }
