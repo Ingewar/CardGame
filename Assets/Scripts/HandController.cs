@@ -40,5 +40,17 @@ public class HandController : MonoBehaviour
 
     }
 
+    public void RemoveCardFromHand(Card card)
+    {
+        if (cards.Contains(card))
+        {
+            cards.Remove(card);
+        }
+        else
+        {
+            Debug.Log("Card not in hand /n" + card.name);
+        }
+        SetCardPositions();
+    }
 
 }

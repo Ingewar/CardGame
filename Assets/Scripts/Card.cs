@@ -73,6 +73,8 @@ public class Card : MonoBehaviour
                         MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
                         isInHand = false;
                         isSelected = false;
+
+                        handController.RemoveCardFromHand(this);
                     }
                     else
                     {
