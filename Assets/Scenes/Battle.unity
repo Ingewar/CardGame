@@ -3882,6 +3882,11 @@ MonoBehaviour:
   bgArt: {fileID: 563666795}
   moveSpeed: 5
   rotateSpeed: 540
+  hoverOffset: {x: 0, y: 1, z: 0.5}
+  selectedCardOffset: {x: 0, y: 1.5, z: 0}
+  desktopLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!65 &1145100114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4299,7 +4304,7 @@ GameObject:
   - component: {fileID: 1279484878}
   - component: {fileID: 1279484877}
   - component: {fileID: 1279484876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desktop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5013,6 +5018,11 @@ MonoBehaviour:
   bgArt: {fileID: 1544900867}
   moveSpeed: 5
   rotateSpeed: 540
+  hoverOffset: {x: 0, y: 1, z: 0.5}
+  selectedCardOffset: {x: 0, y: 1.5, z: 0}
+  desktopLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &1410244321
 Transform:
   m_ObjectHideFlags: 0
@@ -5462,6 +5472,11 @@ MonoBehaviour:
   bgArt: {fileID: 1459348478}
   moveSpeed: 5
   rotateSpeed: 540
+  hoverOffset: {x: 0, y: 1, z: 0.5}
+  selectedCardOffset: {x: 0, y: 1.5, z: 0}
+  desktopLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &1628998065
 Transform:
   m_ObjectHideFlags: 0
