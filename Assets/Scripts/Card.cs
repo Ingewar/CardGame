@@ -9,7 +9,7 @@ public class Card : MonoBehaviour
 {
     public bool isInHand;
     public int handIndex;
-    [SerializeField] private CardScriptableObject cardSO;
+    public CardScriptableObject cardSO;
     [SerializeField] private TMP_Text attackText, healthText, manaText, nameText, descriptionText, loreText;
     [SerializeField] private Image characterArt, bgArt;
     [SerializeField] private float moveSpeed = 5f, rotateSpeed = 540f;

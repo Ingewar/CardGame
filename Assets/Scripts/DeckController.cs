@@ -6,6 +6,8 @@ public class DeckController : MonoBehaviour
 {
     public static DeckController instance;
 
+    [SerializeField] private Card cardPrefab;
+
     private void Awake()
     {
         if (instance is null)
@@ -25,6 +27,7 @@ public class DeckController : MonoBehaviour
     void Start()
     {
         SetupDeck();
+        DrawCard();
     }
 
     // Update is called once per frame
@@ -45,6 +48,16 @@ public class DeckController : MonoBehaviour
             CardScriptableObject randomCard = tempDeck[randomIndex];
             activeDeck.Add(randomCard);
             tempDeck.Remove(randomCard);
+        }
+    }
+
+    public void DrawCard()
+    {
+        if (activeDeck.Count > 0)
+        {
+            Card newCard = Instantiate(cardPrefab, transform.position, Quaternion.identity);
+            newCard.cardSO = activeDeck[0];
+            activeDeck.Remove(activeDeck[0]);
         }
     }
 }
