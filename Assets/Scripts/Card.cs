@@ -68,13 +68,24 @@ public class Card : MonoBehaviour
 
                     if (selectedPoint.activeCard is null && selectedPoint.isPlayer)
                     {
-                        selectedPoint.activeCard = this;
-                        cardPlacement = selectedPoint;
-                        MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
-                        isInHand = false;
-                        isSelected = false;
+                        if (BattleController.instance.playerMana >= mana)
+                        {
+                            selectedPoint.activeCard = this;
+                            cardPlacement = selectedPoint;
+                            MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
+                            isInHand = false;
+                            isSelected = false;
 
-                        handController.RemoveCardFromHand(this);
+                            handController.RemoveCardFromHand(this);
+
+                            BattleController.instance.SpendMana(mana);
+                        }
+                        else
+                        {
+                            ReturnToHand();
+                            UIController.instance.ShowManaWarning();
+                        }
+
                     }
                     else
                     {
