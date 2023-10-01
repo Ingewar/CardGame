@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
+    public static HandController instance;
+
+    void Awake()
+    {
+        if (instance is null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     public List<Card> cards = new List<Card>();
     public Transform minPos, maxPos;
 
@@ -50,6 +64,12 @@ public class HandController : MonoBehaviour
         {
             Debug.Log("Card not in hand /n" + card.name);
         }
+        SetCardPositions();
+    }
+
+    public void AddCardToHand(Card card)
+    {
+        cards.Add(card);
         SetCardPositions();
     }
 

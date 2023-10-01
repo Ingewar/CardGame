@@ -21,7 +21,6 @@ public class Card : MonoBehaviour
     private string cardName, description, lore;
     private Vector3 targetPoint;
     private Quaternion targetRotation;
-    private HandController handController;
     private bool isSelected;
     private Collider col;
     private bool justPressed;
@@ -36,7 +35,6 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        handController = FindObjectOfType<HandController>();
     }
 
     // Update is called once per frame
@@ -76,7 +74,7 @@ public class Card : MonoBehaviour
                             isInHand = false;
                             isSelected = false;
 
-                            handController.RemoveCardFromHand(this);
+                            HandController.instance.RemoveCardFromHand(this);
 
                             BattleController.instance.SpendMana(mana);
                         }
@@ -130,7 +128,7 @@ public class Card : MonoBehaviour
     {
         if (isInHand)
         {
-            MoveToPoint(handController.cardPositions[handIndex] + hoverOffset, Quaternion.identity);
+            MoveToPoint(HandController.instance.cardPositions[handIndex] + hoverOffset, Quaternion.identity);
         }
     }
 
@@ -138,7 +136,7 @@ public class Card : MonoBehaviour
     {
         if (isInHand)
         {
-            MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
+            MoveToPoint(HandController.instance.cardPositions[handIndex], HandController.instance.minPos.rotation);
         }
     }
 
@@ -157,6 +155,6 @@ public class Card : MonoBehaviour
     {
         isSelected = false;
         col.enabled = true;
-        MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
+        MoveToPoint(HandController.instance.cardPositions[handIndex], HandController.instance.minPos.rotation);
     }
 }

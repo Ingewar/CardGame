@@ -27,13 +27,16 @@ public class DeckController : MonoBehaviour
     void Start()
     {
         SetupDeck();
-        DrawCard();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //TODO temp
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DrawCard();
+        }
     }
 
     public void SetupDeck()
@@ -58,6 +61,8 @@ public class DeckController : MonoBehaviour
             Card newCard = Instantiate(cardPrefab, transform.position, Quaternion.identity);
             newCard.cardSO = activeDeck[0];
             activeDeck.Remove(activeDeck[0]);
+
+            HandController.instance.AddCardToHand(newCard);
         }
     }
 }
