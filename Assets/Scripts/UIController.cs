@@ -8,6 +8,9 @@ public class UIController : MonoBehaviour
     public static UIController instance { get; private set; }
 
     [SerializeField] private TextMeshProUGUI playerMana;
+    [SerializeField] private GameObject manaWarning;
+    [SerializeField] private float manaWarningDisplayTime = 2f;
+    private float manaWarningTimer;
 
     void Awake()
     {
@@ -28,11 +31,28 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UpdateManaWarning();
     }
 
     public void SetPlayerMana(int mana)
     {
         playerMana.text = $"Mana: {mana}";
+    }
+
+    public void ShowManaWarning()
+    {
+        manaWarning.SetActive(true);
+        manaWarningTimer = manaWarningDisplayTime;
+    }
+
+    public void UpdateManaWarning()
+    {
+        if (manaWarningTimer <= 0) return;
+
+        manaWarningTimer -= Time.deltaTime;
+        if (manaWarningTimer <= 0)
+        {
+            manaWarning.SetActive(false);
+        }
     }
 }
