@@ -17,6 +17,6 @@ MonoBehaviour:
   lore: Fire djinne
   attack: 4
   health: 5
-  mana: 4
+  mana: 5
   characterSprite: {fileID: 21300000, guid: ac9091c7a4619f14cb352684cfd85e4b, type: 3}
   bgSprite: {fileID: 21300000, guid: 565f65205f5e960459433b35a5274b28, type: 3}
