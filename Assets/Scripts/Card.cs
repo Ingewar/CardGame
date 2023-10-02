@@ -9,10 +9,10 @@ public class Card : MonoBehaviour
 {
     public bool isInHand;
     public int handIndex;
-    [SerializeField] private CardScriptableObject cardSO;
+    public CardScriptableObject cardSO;
     [SerializeField] private TMP_Text attackText, healthText, manaText, nameText, descriptionText, loreText;
     [SerializeField] private Image characterArt, bgArt;
-    [SerializeField] private float moveSpeed = 5f, rotateSpeed = 540f;
+    [SerializeField] private float moveSpeed = 5f, rotateSpeed = 10f;
     [SerializeField] private Vector3 hoverOffset = new Vector3(0, 1f, .5f);
     [SerializeField] private Vector3 selectedCardOffset = new Vector3(0, 2, 0);
     [SerializeField] private LayerMask desktopLayer, placementLayer;
@@ -21,7 +21,6 @@ public class Card : MonoBehaviour
     private string cardName, description, lore;
     private Vector3 targetPoint;
     private Quaternion targetRotation;
-    private HandController handController;
     private bool isSelected;
     private Collider col;
     private bool justPressed;
@@ -30,13 +29,12 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         col = GetComponent<Collider>();
-        SetupCard();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        handController = FindObjectOfType<HandController>();
+        SetupCard();
     }
 
     // Update is called once per frame
@@ -72,11 +70,11 @@ public class Card : MonoBehaviour
                         {
                             selectedPoint.activeCard = this;
                             cardPlacement = selectedPoint;
-                            MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
+                            MoveToPoint(cardPlacement.transform.position, Quaternion.identity);
                             isInHand = false;
                             isSelected = false;
 
-                            handController.RemoveCardFromHand(this);
+                            HandController.instance.RemoveCardFromHand(this);
 
                             BattleController.instance.SpendMana(mana);
                         }
@@ -130,7 +128,7 @@ public class Card : MonoBehaviour
     {
         if (isInHand)
         {
-            MoveToPoint(handController.cardPositions[handIndex] + hoverOffset, Quaternion.identity);
+            MoveToPoint(HandController.instance.cardPositions[handIndex] + hoverOffset, Quaternion.identity);
         }
     }
 
@@ -138,7 +136,7 @@ public class Card : MonoBehaviour
     {
         if (isInHand)
         {
-            MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
+            MoveToPoint(HandController.instance.cardPositions[handIndex], HandController.instance.minPos.rotation);
         }
     }
 
@@ -157,6 +155,6 @@ public class Card : MonoBehaviour
     {
         isSelected = false;
         col.enabled = true;
-        MoveToPoint(handController.cardPositions[handIndex], handController.minPos.rotation);
+        MoveToPoint(HandController.instance.cardPositions[handIndex], HandController.instance.minPos.rotation);
     }
 }

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     public static UIController instance { get; private set; }
+    public Button drawCardButton;
 
     [SerializeField] private TextMeshProUGUI playerMana;
     [SerializeField] private GameObject manaWarning;
@@ -55,4 +57,10 @@ public class UIController : MonoBehaviour
             manaWarning.SetActive(false);
         }
     }
+
+    public void DrawExtraCard()
+    {
+        DeckController.instance.DrawExtraCard();
+    }
+
 }
