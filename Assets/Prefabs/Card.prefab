@@ -716,7 +716,7 @@ MonoBehaviour:
   characterArt: {fileID: 3386532926804199606}
   bgArt: {fileID: 4984979823741089116}
   moveSpeed: 5
-  rotateSpeed: 540
+  rotateSpeed: 3
   hoverOffset: {x: 0, y: 1, z: 0.5}
   selectedCardOffset: {x: 0, y: 1.5, z: 0}
   desktopLayer:

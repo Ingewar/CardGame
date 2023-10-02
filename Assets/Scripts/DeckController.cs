@@ -58,7 +58,7 @@ public class DeckController : MonoBehaviour
     {
         if (activeDeck.Count > 0)
         {
-            Card newCard = Instantiate(cardPrefab, transform.position, Quaternion.identity);
+            Card newCard = Instantiate(cardPrefab, transform.position, transform.rotation);
             newCard.cardSO = activeDeck[0];
             activeDeck.Remove(activeDeck[0]);
 

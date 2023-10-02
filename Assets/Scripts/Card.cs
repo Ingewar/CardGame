@@ -12,7 +12,7 @@ public class Card : MonoBehaviour
     public CardScriptableObject cardSO;
     [SerializeField] private TMP_Text attackText, healthText, manaText, nameText, descriptionText, loreText;
     [SerializeField] private Image characterArt, bgArt;
-    [SerializeField] private float moveSpeed = 5f, rotateSpeed = 540f;
+    [SerializeField] private float moveSpeed = 5f, rotateSpeed = 10f;
     [SerializeField] private Vector3 hoverOffset = new Vector3(0, 1f, .5f);
     [SerializeField] private Vector3 selectedCardOffset = new Vector3(0, 2, 0);
     [SerializeField] private LayerMask desktopLayer, placementLayer;

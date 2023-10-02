@@ -20,7 +20,6 @@ public class HandController : MonoBehaviour
 
     public List<Card> cards = new List<Card>();
     public Transform minPos, maxPos;
-
     public List<Vector3> cardPositions = new List<Vector3>();
 
     void Start()
