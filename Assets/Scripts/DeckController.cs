@@ -8,6 +8,7 @@ public class DeckController : MonoBehaviour
 
     [SerializeField] private Card cardPrefab;
     [SerializeField] private int drawCardCost = 2;
+    [SerializeField] private float drawCardDelay = .25f;
 
     private void Awake()
     {
@@ -73,6 +74,20 @@ public class DeckController : MonoBehaviour
         {
             UIController.instance.ShowManaWarning();
             UIController.instance.drawCardButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void DrawCards(int cardsAmount)
+    {
+        StartCoroutine(DrawCardsCo(cardsAmount));
+    }
+
+    private IEnumerator DrawCardsCo(int cardsAmount)
+    {
+        for (int i = 0; i < cardsAmount; i++)
+        {
+            DrawCard();
+            yield return new WaitForSeconds(drawCardDelay);
         }
     }
 }
