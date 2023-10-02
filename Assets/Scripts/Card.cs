@@ -70,7 +70,7 @@ public class Card : MonoBehaviour
                         {
                             selectedPoint.activeCard = this;
                             cardPlacement = selectedPoint;
-                            MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
+                            MoveToPoint(cardPlacement.transform.position, Quaternion.identity);
                             isInHand = false;
                             isSelected = false;
 

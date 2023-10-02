@@ -7,6 +7,7 @@ public class DeckController : MonoBehaviour
     public static DeckController instance;
 
     [SerializeField] private Card cardPrefab;
+    [SerializeField] private int drawCardCost = 2;
 
     private void Awake()
     {
@@ -32,11 +33,6 @@ public class DeckController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO temp
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DrawCard();
-        }
     }
 
     public void SetupDeck()
@@ -63,6 +59,20 @@ public class DeckController : MonoBehaviour
             activeDeck.RemoveAt(0);
 
             HandController.instance.AddCardToHand(newCard);
+        }
+    }
+
+    public void DrawExtraCard()
+    {
+        if (BattleController.instance.playerMana >= drawCardCost)
+        {
+            BattleController.instance.SpendMana(drawCardCost);
+            DrawCard();
+        }
+        else
+        {
+            UIController.instance.ShowManaWarning();
+            UIController.instance.drawCardButton.gameObject.SetActive(false);
         }
     }
 }
