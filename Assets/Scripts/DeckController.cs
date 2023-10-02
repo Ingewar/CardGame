@@ -60,7 +60,7 @@ public class DeckController : MonoBehaviour
         {
             Card newCard = Instantiate(cardPrefab, transform.position, transform.rotation);
             newCard.cardSO = activeDeck[0];
-            activeDeck.Remove(activeDeck[0]);
+            activeDeck.RemoveAt(0);
 
             HandController.instance.AddCardToHand(newCard);
         }

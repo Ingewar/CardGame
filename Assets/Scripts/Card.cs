@@ -29,12 +29,12 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         col = GetComponent<Collider>();
-        SetupCard();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        SetupCard();
     }
 
     // Update is called once per frame
