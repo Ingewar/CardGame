@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public static UIController instance { get; private set; }
-    public Button drawCardButton;
+    public Button drawCardButton, endTurnButton;
 
     [SerializeField] private TextMeshProUGUI playerMana;
     [SerializeField] private GameObject manaWarning;
@@ -61,6 +61,14 @@ public class UIController : MonoBehaviour
     public void DrawExtraCard()
     {
         DeckController.instance.DrawExtraCard();
+    }
+
+    public void EndTurn()
+    {
+        drawCardButton.gameObject.SetActive(false);
+        endTurnButton.gameObject.SetActive(false);
+
+        BattleController.instance.EndPlayerTurn();
     }
 
 }

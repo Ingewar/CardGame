@@ -76,7 +76,14 @@ public class BattleController : MonoBehaviour
                 break;
             case BattleState.EnemyCardsAttack:
                 battleState = BattleState.PlayerTurn;
+                UIController.instance.endTurnButton.gameObject.SetActive(true);
+                UIController.instance.drawCardButton.gameObject.SetActive(true);
                 break;
         }
+    }
+
+    public void EndPlayerTurn()
+    {
+        AdvanceTurn();
     }
 }
