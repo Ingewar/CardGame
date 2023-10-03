@@ -11,6 +11,16 @@ public class BattleController : MonoBehaviour
     public int playerMana;
     [SerializeField] private int startNumberOfCards = 3;
 
+    public enum BattleState
+    {
+        PlayerTurn,
+        PlayerCardsAttack,
+        EnemyTurn,
+        EnemyCardsAttack
+    }
+
+    public BattleState battleState;
+
     void Awake()
     {
         if (instance == null)
@@ -34,7 +44,10 @@ public class BattleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AdvanceTurn();
+        }
     }
 
     public void SpendMana(int mana)
@@ -46,5 +59,24 @@ public class BattleController : MonoBehaviour
         }
 
         UIController.instance.SetPlayerMana(playerMana);
+    }
+
+    public void AdvanceTurn()
+    {
+        switch (battleState)
+        {
+            case BattleState.PlayerTurn:
+                battleState = BattleState.PlayerCardsAttack;
+                break;
+            case BattleState.EnemyTurn:
+                battleState = BattleState.EnemyCardsAttack;
+                break;
+            case BattleState.PlayerCardsAttack:
+                battleState = BattleState.EnemyTurn;
+                break;
+            case BattleState.EnemyCardsAttack:
+                battleState = BattleState.PlayerTurn;
+                break;
+        }
     }
 }
