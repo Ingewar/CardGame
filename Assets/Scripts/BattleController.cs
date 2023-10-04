@@ -7,9 +7,9 @@ public class BattleController : MonoBehaviour
 {
     public static BattleController instance { get; private set; }
 
-    public int startMana = 4, maxMana = 12;
+    public int startMana = 4, maxMana = 12, turnMana = 2;
     public int playerMana;
-    [SerializeField] private int startNumberOfCards = 3;
+    [SerializeField] private int startNumberOfCards = 3, cardsPerTurn = 1;
 
     public enum BattleState
     {
@@ -35,8 +35,7 @@ public class BattleController : MonoBehaviour
     }
     void Start()
     {
-        playerMana = startMana;
-        UIController.instance.SetPlayerMana(playerMana);
+        AddMana(startMana);
 
         DeckController.instance.DrawCards(startNumberOfCards);
     }
@@ -61,6 +60,12 @@ public class BattleController : MonoBehaviour
         UIController.instance.SetPlayerMana(playerMana);
     }
 
+    public void AddMana(int mana)
+    {
+        playerMana = Mathf.Clamp(playerMana + mana, 0, maxMana);
+        UIController.instance.SetPlayerMana(playerMana);
+    }
+
     public void AdvanceTurn()
     {
         switch (battleState)
@@ -78,6 +83,9 @@ public class BattleController : MonoBehaviour
                 battleState = BattleState.PlayerTurn;
                 UIController.instance.endTurnButton.gameObject.SetActive(true);
                 UIController.instance.drawCardButton.gameObject.SetActive(true);
+
+                AddMana(turnMana);
+                DeckController.instance.DrawCards(cardsPerTurn);
                 break;
         }
     }

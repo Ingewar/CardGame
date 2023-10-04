@@ -1848,6 +1848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMana: 4
   maxMana: 12
+  turnMana: 2
   playerMana: 0
   startNumberOfCards: 4
   battleState: 0
