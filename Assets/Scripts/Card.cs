@@ -142,7 +142,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isInHand)
+        if (isInHand && BattleController.instance.battleState == BattleController.BattleState.PlayerTurn)
         {
             isSelected = true;
             col.enabled = false;
